@@ -13,26 +13,21 @@ const addNoteHandler = (request, h) => {
 
   const isSuccess = notes.filter((note) => note.id === id).length > 0;
 
-  let response;
-
   if (isSuccess) {
-    response = h.response({
+    return h.response({
       status: 'success',
       message: 'note successfully added',
       data: {
-        notedId: id,
+        noteId: id,
       },
-    });
-    response.code(201);
+    }).code(201);
   } else {
-    response = h.response({
+    return h.response({
       status: 'fail',
       message: 'note failed to add',
-    });
-    response.code(500);
+    }).code(500);
   }
 
-  return response;
 };
 
 const getlistNoteHandler = (request, h) => {

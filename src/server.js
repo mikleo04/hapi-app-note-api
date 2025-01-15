@@ -5,7 +5,7 @@ import process from 'process';
 const init =  async () => {
   const server = Hapi.server({
     port: 5000,
-    host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0',
+    host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0', // in the production environment can not use localhost, 0.0.0.0 can allow all the network interfaces
     // add the server option to allo CORS requesr
     routes: {
       cors: {
