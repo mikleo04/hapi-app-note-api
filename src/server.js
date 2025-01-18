@@ -1,6 +1,6 @@
 import Hapi from '@hapi/hapi';
 import process from 'process';
-import notes from './api/notes';
+import notes from './api/notes/index.js';
 import NotesService from './service/inMemory/notesService.js';
 
 const init =  async () => {
