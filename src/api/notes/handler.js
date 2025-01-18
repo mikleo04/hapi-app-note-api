@@ -37,6 +37,8 @@ class NotesHandler {
   }
 
   getNotesHandler(request, h) {
+    const { name = '' } = request.query; // for validate query parameter
+    this._validator.validateNoteQuery(name); // for validate query parameter
     const notes =  this._service.getNotes();
     return h.response({
       status: 'success',

@@ -6,4 +6,8 @@ const NotePayloadSchema = Joi.object({
   tags: Joi.array().items(Joi.string()).required(),
 });
 
-export { NotePayloadSchema };
+const NoteQueryParamSchema = Joi.object({
+  name: Joi.string().empty(''),
+});
+
+export { NotePayloadSchema, NoteQueryParamSchema };
