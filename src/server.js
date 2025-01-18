@@ -2,6 +2,7 @@ import Hapi from '@hapi/hapi';
 import process from 'process';
 import notes from './api/notes/index.js';
 import NotesService from './service/inMemory/notesService.js';
+import NotesValidator from './validator/notes/index.js';
 
 const init =  async () => {
   const notesService = new NotesService();
@@ -21,6 +22,7 @@ const init =  async () => {
     plugin: notes,
     options: {
       service: notesService,
+      validator: NotesValidator,
     },
   });
 
