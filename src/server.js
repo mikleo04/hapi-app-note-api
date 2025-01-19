@@ -4,13 +4,15 @@ import notes from './api/notes/index.js';
 import NotesService from './service/inMemory/notesService.js';
 import NotesValidator from './validator/notes/index.js';
 import ClientError from './exceptions/ClientError.js';
+import { config as configDotenv } from 'dotenv';
+configDotenv();
 
 const init =  async () => {
   const notesService = new NotesService();
 
   const server = Hapi.server({
-    port: 5000,
-    host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0', // in the production environment can not use localhost, 0.0.0.0 can allow all the network interfaces
+    port: process.env.PORT,
+    host: process.env.HOST, // in the production environment can not use localhost, 0.0.0.0 can allow all the network interfaces
     // add the server option to allo CORS requesr
     routes: {
       cors: {
