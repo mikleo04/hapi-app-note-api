@@ -1,3 +1,5 @@
+import ClientError from '../../exceptions/ClientError.js';
+
 class NotesHandler {
   constructor(service, validator) {
     this._service = service;
@@ -28,17 +30,26 @@ class NotesHandler {
       return response;
 
     } catch (error) {
-      const response = h.response({
-        status: 'fail',
-        message: error.message
-      }).code(400);
-      return response;
+
+      if (error instanceof ClientError) {
+        return h.response({
+          status: 'fail',
+          message: error.message,
+        }).code(error.statusCode);
+      }
+
+      console.log(error);
+
+      return h.response({
+        status: 'error',
+        message: 'server error',
+      }).code(500);
     }
   }
 
   getNotesHandler(request, h) {
-    const { name = '' } = request.query; // for validate query parameter
-    this._validator.validateNoteQuery(name); // for validate query parameter
+    // const { name = '' } = request.query; // for validate query parameter
+    // this._validator.validateNoteQuery(name); // for validate query parameter
     const notes =  this._service.getNotes();
     return h.response({
       status: 'success',
@@ -62,10 +73,19 @@ class NotesHandler {
       }).code(200);
 
     } catch (error) {
+      if (error instanceof ClientError) {
+        return h.response({
+          status: 'fail',
+          message: error.message,
+        }).code(error.statusCode);
+      }
+
+      console.log(error);
+
       return h.response({
-        status: 'fail',
-        message: error.message
-      }).code(404);
+        status: 'error',
+        message: 'server error',
+      }).code(500);
     }
   }
 
@@ -80,10 +100,19 @@ class NotesHandler {
         message: 'note successfully updated',
       }).code(200);
     } catch (error) {
+      if (error instanceof ClientError) {
+        return h.response({
+          status: 'fail',
+          message: error.message,
+        }).code(error.statusCode);
+      }
+
+      console.log(error);
+
       return h.response({
-        status: 'fail',
-        message: error.message
-      }).code(404);
+        status: 'error',
+        message: 'server error',
+      }).code(500);
     }
   }
 
@@ -97,10 +126,19 @@ class NotesHandler {
         message: 'note successfully deleted',
       }).code(200);
     } catch (error) {
+      if (error instanceof ClientError) {
+        return h.response({
+          status: 'fail',
+          message: error.message,
+        }).code(error.statusCode);
+      }
+
+      console.log(error);
+
       return h.response({
-        status: 'fail',
-        message: error.message
-      }).code(404);
+        status: 'error',
+        message: 'server error',
+      }).code(500);
     }
   }
 }
