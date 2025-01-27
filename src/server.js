@@ -1,7 +1,7 @@
 import Hapi from '@hapi/hapi';
 import process from 'process';
 import notes from './api/notes/index.js';
-import NotesService from './service/inMemory/notesService.js';
+import NotesService from './service/postgres/notesService.js';
 import NotesValidator from './validator/notes/index.js';
 import ClientError from './exceptions/ClientError.js';
 import { config as configDotenv } from 'dotenv';

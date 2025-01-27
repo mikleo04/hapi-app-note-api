@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
-import { Pool } from 'pg';
-import { mapDBToModel } from '../../utils.js';
+import pkg from 'pg'; // pg is package with commonjs module so we need to destructuring the Pool if want to import with es6 module
+const { Pool } = pkg;
+import { mapDBToModel } from '../../utils/index.js';
 import NotFoundError from '../../exceptions/NotFoundError.js';
 
 class NotesService {
